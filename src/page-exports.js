@@ -1,7 +1,7 @@
 const projects = [
-    {
-        title: "default",
-        todo: {
+    [
+         "default",
+         {
             title: "default TODO",
             desc: "This is a default todo, showing the format.",
             dueDate: "N/A",
@@ -9,7 +9,7 @@ const projects = [
             note: "learn how to use this tool",
             display: false
         },
-        todo1: {
+         {
             title: "default hello",
             desc: "This is a default todo, showing the format.",
             dueDate: "1999",
@@ -17,7 +17,7 @@ const projects = [
             note: "learn how to use this tool",
             display: false
         }
-    }
+    ]
    ];
 
 let iterations = 0;
@@ -28,13 +28,13 @@ function load_project(project) {
    const todo_head = document.createElement("h3");
    
    removal_wrapper.setAttribute("id", "removal-wrapper");
-   project_head.textContent = `Project: ${project.title}`;
+   project_head.textContent = `Project: ${project[0]}`;
    todo_head.textContent = "Todos: ";
 
    removal_wrapper.appendChild(project_head);
    removal_wrapper.appendChild(todo_head);
    for (let item in project) {
-      if (item === "title") {
+      if (item === "0") {
         continue;
       }
       const main_wrapper = document.createElement("div");
@@ -88,11 +88,74 @@ function load_project(project) {
 
 function reset(project) {
     for (let item in project) {
-        if (item === "title") {
+        if (item === "0") {
           continue;
         }
        project[item].display = false;
     }
+}
+
+function Todo(title, desc, date, priority, notes) {
+   this.title = title;
+   this.desc = desc;
+   this.dueDate = date;
+   this.priority = priority;
+   this.note = notes;
+   this.display = false;
+}
+
+function errorPage() {
+   const warning = document.createElement("dialog");
+   const errorMessage = document.createElement("h2");
+   const closeBtn = document.createElement("button");
+   const main = document.querySelector("main");
+
+   warning.setAttribute("id", "errorPage");
+   errorMessage.textContent = "Select a project before adding a TODO";
+   closeBtn.textContent = "X";
+   warning.appendChild(errorMessage);
+   warning.appendChild(closeBtn);
+
+   main.appendChild(warning);
+
+   warning.showModal();
+
+   closeBtn.addEventListener("click", () => {
+     warning.remove();
+   });
+}
+
+function dialog(currentProject, project) {
+    const showDialog = document.querySelector("#showDialog");
+    const dialog = document.querySelector("dialog");
+    const confirmBtn = document.querySelector("#confirmBtn");
+
+    showDialog.addEventListener("click", () => {
+      dialog.showModal();
+    });
+
+    confirmBtn.addEventListener("click", (event) => {
+      try {
+        const newTitle = document.querySelector("#title");
+        const newDesc = document.querySelector("#desc");
+        const newDate = document.querySelector("#date");
+        const newPriority = document.querySelector("#priority");
+        const newNotes = document.querySelector("#note");
+        
+        let newTodo = new Todo(newTitle.value, newDesc.value, newDate.value, newPriority.value, newNotes.value);
+        projects[currentProject].push(newTodo);
+
+        event.preventDefault();
+        dialog.close();
+
+        const removal_wrapper = document.getElementById("removal-wrapper");
+        removal_wrapper.remove();
+        load_project(project);
+      } catch (error) {
+         projects[currentProject].splice((projects[currentProject].length - 1), 1);
+         errorPage();
+      }
+    });
 }
 
 export function projects_bar() {
@@ -100,7 +163,7 @@ export function projects_bar() {
    for (let project in projects) {
     const project_button = document.createElement("button");
 
-    project_button.textContent = projects[project].title;
+    project_button.textContent = projects[project][0];
     project_button.addEventListener("click", () => {
         if (iterations > 0) {
             const removal_wrapper = document.getElementById("removal-wrapper");
@@ -109,7 +172,8 @@ export function projects_bar() {
         }
         load_project(projects[project]);
     });
-
+   
     nav.appendChild(project_button);
+    dialog(project, projects[project]);
    }
 }
