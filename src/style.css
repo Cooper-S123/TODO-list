@@ -230,3 +230,19 @@ input {
 .delete-project:hover {
     background-color: rgba(243, 79, 79, 0.846);
 }
+
+.prior-low {
+    background-color: green;
+}
+
+.prior-medium {
+    background-color: rgb(162, 195, 97);
+}
+
+.prior-high {
+    background-color: orange;
+}
+
+.prior-undefined {
+    background-color: rgb(116, 115, 115);
+}

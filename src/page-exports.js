@@ -70,6 +70,18 @@ function load_project(project) {
       buttons.classList.add("todo-buttons");
       main_wrapper.classList.add("main-wrapper");
       todoBtn.textContent = project[item].title;
+      if (project[item].priority === "low") {
+        todoBtn.classList.add("prior-low");
+      } 
+      else  if (project[item].priority === "medium") {
+        todoBtn.classList.add("prior-medium");
+      }
+      else  if (project[item].priority === "high") {
+        todoBtn.classList.add("prior-high");
+      }
+      else {
+        todoBtn.classList.add("prior-undefined");
+      }
       todoBtn.addEventListener("click", () => {
         if (project[item].display === false) {
             project[item].display = true;
@@ -79,6 +91,16 @@ function load_project(project) {
          }
         
         if (project[item].display === true) {
+            try {
+                const info_remove = document.getElementById("info-wrapper");
+                info_remove.remove();
+                for (let todo in project) {
+                   if (todo === "0" || todo === item) {
+                    continue;
+                   }
+                   project[todo].display = false;
+                }
+            } catch(error) {}
             const info_wrapper = document.createElement("div");
             const info_head = document.createElement("h4");
             const info_desc = document.createElement("p");
