@@ -12,7 +12,9 @@
         <div class="heading">
             <h1>TODO List:</h1>
         </div>
-        <nav></nav>
+        <nav>
+              <button id="newProject" title="Add Project">+</button>
+        </nav>
     </header>
     <main>
         <button id="showDialog" title="Add Todo">+</button>
@@ -37,6 +39,16 @@
                 </p>
                     <button type="submit" id="confirmBtn">Confirm</button>
             </form>
+        </dialog>
+        <dialog id="addProject">
+           <h3>Add Project</h3>
+           <form method="dialog">
+              <p>
+                <label for="name">Project name:</label>
+                <input type="text" name="name" id="name" autocomplete="off">
+              </p>
+              <button type="submit" id="submitBtn">Confirm</button>
+           </form>
         </dialog>
     </main>
     <footer>

@@ -82,6 +82,11 @@ h3 {
     gap: 0.5rem;
 }
 
+.todo-buttons {
+    display: flex;
+    gap: 0.2rem;
+}
+
 .info-wrapper {
     background-color: var(--nav-bg);
     border-radius: 15px;
@@ -119,6 +124,15 @@ footer {
   position: fixed;
   right: 20px;
   top: 200px;
+}
+
+#newProject {
+    height: 7vh;
+    width: auto;
+    border-radius: 100%;
+    font-size: 2rem;
+    position: absolute;
+    right: 20px;
 }
 
 dialog {
@@ -182,4 +196,37 @@ input {
     position: relative;
     left: 90%;
     bottom: 10px;
+}
+
+#preText {
+    position: fixed;
+    font-size: 2.5rem;
+    top: calc(50vh - 1.25rem);
+    left: calc(50vw - 1.25rem - 15rem);
+}
+
+.remove-todo {
+    background-color: red;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+}
+
+.remove-todo:hover {
+    background-color: rgba(255, 0, 0, 0.659);
+}
+
+.center-removeBtn {
+    display: grid;
+    place-content: center;
+}
+
+.delete-project {
+    background-color: rgb(255, 0, 0);
+    position: relative;
+    top: 3rem;
+}
+
+.delete-project:hover {
+    background-color: rgba(243, 79, 79, 0.846);
 }
